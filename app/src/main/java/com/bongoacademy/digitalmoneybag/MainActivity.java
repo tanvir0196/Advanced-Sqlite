@@ -10,6 +10,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     TextView tvFinalBalance,tvTotalExpense, tvAddExpense,tvShowAllDataExpense,tvAddIncome,tvTotalIncome,tvShowAllDataIncome;
+    DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         tvAddIncome = findViewById(R.id.tvAddIncome);
         tvTotalIncome = findViewById(R.id.tvTotalIncome);
         tvShowAllDataIncome =findViewById(R.id.tvShowAllDataIncome);
+        dbHelper = new DatabaseHelper(this);
 
         tvAddExpense.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,11 +33,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        upDateUI();
 
 
     }
 
+//==========================================================================================
+    public void upDateUI(){
+        tvTotalExpense.setText("BDT "+dbHelper.calculateTotalExpense() );
 
-    //===================================================================
+    }
+
+    //===========================================================================================
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+
+        upDateUI();
+
+    }
+
+
+    //===========================================================================================
 }

@@ -20,6 +20,7 @@ public class AddData extends AppCompatActivity {
     Button button;
     DatabaseHelper dbHelper;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,5 +54,5 @@ public class AddData extends AppCompatActivity {
 
     }
 
-    //==========================================================
+    //========================================================================
 }

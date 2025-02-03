@@ -2,6 +2,7 @@ package com.bongoacademy.digitalmoneybag;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -37,4 +38,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //===================================================================================
+
+    //===================================================================================
+    public double calculateTotalExpense(){
+
+        double totalExpense = 0;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select *from expense",null);
+
+        if(cursor != null && cursor.getCount() > 0){
+            while (cursor.moveToNext() ){
+                double amount = cursor.getDouble(1);
+                totalExpense = totalExpense +amount;
+            }
+        }
+
+
+        return totalExpense;
+
+    }
+
+    //===============================================================================================
 }
