@@ -20,6 +20,7 @@ public class AddData extends AppCompatActivity {
     Button button;
     DatabaseHelper dbHelper;
 
+    public static boolean EXPENSE = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,19 +32,30 @@ public class AddData extends AppCompatActivity {
         edReason = findViewById(R.id.edReason);
         dbHelper = new DatabaseHelper(this);
 
+        if(EXPENSE == true) tvTitle.setText("Add Expense");
+
+
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String sAmount = edAmount.getText().toString();
                 String reason = edReason.getText().toString();
 
-                double amount = Double.parseDouble(sAmount);
-                dbHelper.addExpense(amount,reason);
+                if (!sAmount.isEmpty()) {
+                    double amount = Double.parseDouble(sAmount);
 
-                tvTitle.setText("Inserted");
+                    if (EXPENSE) {
+                        dbHelper.addExpense(amount, reason);
+                    } else {
+                        dbHelper.addIncome(amount, reason);
+                    }
 
+                    finish(); // Close activity to refresh MainActivity UI
+                }
             }
         });
+
 
     }
     //========================================================

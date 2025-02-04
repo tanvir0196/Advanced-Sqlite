@@ -25,24 +25,39 @@ public class MainActivity extends AppCompatActivity {
         tvShowAllDataIncome =findViewById(R.id.tvShowAllDataIncome);
         dbHelper = new DatabaseHelper(this);
 
+
+       updateUI();
+
         tvAddExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                AddData.EXPENSE = true;
                 startActivity(new Intent(MainActivity.this,AddData.class));
 
             }
         });
 
-        upDateUI();
+        tvAddIncome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AddData.EXPENSE = false;
+                startActivity(new Intent(MainActivity.this,AddData.class));
+            }
+        });
 
 
     }
 
 //==========================================================================================
-    public void upDateUI(){
-        tvTotalExpense.setText("BDT "+dbHelper.calculateTotalExpense() );
+public void updateUI() {
+   tvTotalExpense.setText("BDT "+dbHelper.calculateTotalExpense() );
+   tvTotalIncome.setText("BDT "+dbHelper.calculateTotalIncome() );
+   double balance = dbHelper.calculateTotalIncome() - dbHelper.calculateTotalExpense();
+   tvFinalBalance.setText("BDT: "+balance);
+}
 
-    }
 
     //===========================================================================================
 
@@ -50,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPostResume() {
         super.onPostResume();
 
-        upDateUI();
+       updateUI();
 
     }
 
